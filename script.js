@@ -1,4 +1,4 @@
-import { getHexNumber } from "./fetching.js"
+import { getHexNumber, getCountryData } from "./fetching.js"
 
 // Alternativt namn: adviceApi
 const exercise1 = {
@@ -14,6 +14,10 @@ const exercise4 = {
 	input: document.querySelector('#exercise4-input'),
 	btn: document.querySelector('#exercise4-btn'),
 	output: document.querySelector('#exercise4-output')
+}
+const exercise3 = {
+	btn: document.querySelector('#exercise3-btn'),
+	tbody: document.querySelector('#exercise3-tbody')
 }
 
 
@@ -109,4 +113,56 @@ exercise4.btn.addEventListener('click', () => {
 
 function renderHexNumber(hex) {
 	exercise4.output.innerText = `Talet blir: ${hex}.`
+}
+
+
+/*
+3 Bygg en webbapp som hämtar (några år gammal) statistik om utvalda länder.
+Skicka request till: https://forverkliga.se/JavaScript/api/simple.php?world 
+Det finns ingen dokumentation, utan du behöver studera datan du får tillbaka från API:et. Datan ska visas prydligt i en tabell. Appen ska även svara på frågorna (ja, detta är uppgift 9.9 i repris)
+a Skriv ut namnet på alla länder. (Här kan du använda forEach.)
+b Vilka länder finns det data för?
+c Vilket är första afrikanska landet i datan?
+d Hur många kvinnor finns det i Australien?
+e Gör en ny lista som innehåller egenskaperna "name", "men" och "women" med hjälp av map.
+f Hur många bor det sammanlagt i Europa?
+g Hitta första landet som har över 100 miljoner invånare.
+h Finns det något land med färre än 49% kvinnor?
+i Hur många bor det på Island?
+*/
+exercise3.btn.addEventListener('click', async () => {
+	// bygg URL
+	// skicka request - vänta på svar - uppdatera DOM
+	const data = await getCountryData()
+	renderCountryTable(data)
+})
+
+// Lägg till DOM-element som parameter ifall du vill lägga funktionen i en annan fil
+function renderCountryTable(countryData) {
+	countryData.forEach(country => {
+		const tr = document.createElement('tr')
+		// const tdName = document.createElement('td')
+		const tdCont = document.createElement('td')
+		const tdPop = document.createElement('td')
+		const tdPerc = document.createElement('td')
+
+		// <tr> <td/> <td/> <td/> <td/> </tr>
+		// tdName.innerText = country.name
+		tdCont.innerText = country.continent
+		tdPop.innerText = country.population
+		tdPerc.innerText = country.pFemale
+
+		// tr.append(tdName)
+		tr.append( createTd(country.name) )
+		tr.append(tdCont)
+		tr.append(tdPop)
+		tr.append(tdPerc)
+
+		exercise3.tbody.append(tr)
+	})
+}
+function createTd(text) {
+	const td = document.createElement('td')
+	td.innerText = text
+	return td
 }

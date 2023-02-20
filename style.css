@@ -12,3 +12,13 @@
 	/* span är inline-element */
 	display: inline-block;
 }
+
+table {
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin: 0.5em 0;
+}
+th, td {
+	border: 1px solid black;
+	padding: 0.4em 0.8em;
+}

@@ -8,4 +8,15 @@ async function getHexNumber(number, onSuccess) {
 	onSuccess(answer)
 }
 
-export { getHexNumber }
+async function getCountryData() {
+	const url = 'https://forverkliga.se/JavaScript/api/simple.php?world'
+	
+	const response = await fetch(url)
+	let text = await response.text()
+	text = text.substring(0, text.length - 1)
+	const data = JSON.parse(text)
+	console.log('getCountryData data is: ', data)
+	return data
+}
+
+export { getHexNumber, getCountryData }
