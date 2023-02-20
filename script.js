@@ -17,7 +17,8 @@ const exercise4 = {
 }
 const exercise3 = {
 	btn: document.querySelector('#exercise3-btn'),
-	tbody: document.querySelector('#exercise3-tbody')
+	tbody: document.querySelector('#exercise3-tbody'),
+	output: document.querySelector('#exercise3-output')
 }
 
 
@@ -135,6 +136,7 @@ exercise3.btn.addEventListener('click', async () => {
 	// skicka request - vänta på svar - uppdatera DOM
 	const data = await getCountryData()
 	renderCountryTable(data)
+	renderList3E(data)
 })
 
 // Lägg till DOM-element som parameter ifall du vill lägga funktionen i en annan fil
@@ -165,4 +167,20 @@ function createTd(text) {
 	const td = document.createElement('td')
 	td.innerText = text
 	return td
+}
+
+function renderList3E(data) {
+	// e Gör en ny lista som innehåller egenskaperna "name", "men" och "women" med hjälp av map.
+	const newCountryData = data.map(country => {
+		let women = Math.round(country.population * country.pFemale)
+		let men = country.population - women
+		let o = {
+			name: country.name,
+			men: men,
+			women: women
+		}
+		return o
+	})
+	let string = JSON.stringify(newCountryData)
+	exercise3.output.innerText = string
 }
