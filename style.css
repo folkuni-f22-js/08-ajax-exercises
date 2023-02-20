@@ -4,3 +4,11 @@
 	padding: 1em;
 	margin: 0.5em 0;
 }
+
+#exercise1-advice-list li>span:first-child {
+	font-family: "Courier";
+	font-weight: bold;
+	width: 2.5em;
+	/* span är inline-element */
+	display: inline-block;
+}
