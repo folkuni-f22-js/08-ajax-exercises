@@ -1,3 +1,5 @@
+import { getHexNumber } from "./fetching.js"
+
 // Alternativt namn: adviceApi
 const exercise1 = {
 	btn: document.querySelector('#btn-exercise1'),
@@ -7,6 +9,11 @@ const exercise1 = {
 const exercise2 = {
 	input: document.querySelector('#input-exercise2'),
 	btn: document.querySelector('#btn-exercise2')
+}
+const exercise4 = {
+	input: document.querySelector('#exercise4-input'),
+	btn: document.querySelector('#exercise4-btn'),
+	output: document.querySelector('#exercise4-output')
 }
 
 
@@ -86,3 +93,20 @@ Skicka ett nytt request till: https://api.math.tools/numbers/base/binary
 4c* Användaren ska kunna välja från (default: 10) och till (default: 16) vilken bas input ska omvandlas. Tips: från=10 och till=16 är samma som a-uppgiften.
 Skicka request till: https://api.math.tools/numbers/base?from=x&to=y&number=z (byt ut x/y/z mot dina värden)
 */
+exercise4.btn.addEventListener('click', () => {
+	// hämta användarens tal ur DOM
+	// konstruera URL
+	// skicka request - vänta på svar - vänta på json
+	// hantera eventuella fel
+	// visa talet i output
+
+	const userNumber = exercise4.input.value
+	getHexNumber(userNumber, hex => {
+		renderHexNumber(hex)
+	})
+})
+
+
+function renderHexNumber(hex) {
+	exercise4.output.innerText = `Talet blir: ${hex}.`
+}
